@@ -1,10 +1,10 @@
 package com.saw.emsbackend.exception;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,7 +21,7 @@ public class RestExceptionHandler {
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handleValidationException(HttpServletRequest request, MethodArgumentNotValidException ex) {
+    public ResponseEntity<Object> handleValidationException(MethodArgumentNotValidException ex) {
         LocalDateTime currentTimestamp = LocalDateTime.now();
         List<String> errors = ex.getBindingResult()
                 .getFieldErrors()
@@ -36,7 +36,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Object> handleConstrainViolationException(HttpServletRequest request, ConstraintViolationException ex) {
+    public ResponseEntity<Object> handleConstrainViolationException(ConstraintViolationException ex) {
 
         LocalDateTime currentTimestamp = LocalDateTime.now();
         ErrorResponse response = new ErrorResponse(400,
@@ -48,7 +48,7 @@ public class RestExceptionHandler {
 
 
     @ExceptionHandler(SQLException.class)
-    public ResponseEntity<Object> handleSqlException(HttpServletRequest request, SQLException ex) {
+    public ResponseEntity<Object> handleSqlException(SQLException ex) {
 
         LocalDateTime currentTimestamp = LocalDateTime.now();
         ErrorResponse response = new ErrorResponse(400,
@@ -59,7 +59,7 @@ public class RestExceptionHandler {
 
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<Object> handleResourceNotFoundException(HttpServletRequest request, ResourceNotFoundException ex) {
+    public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
 
         LocalDateTime currentTimestamp = LocalDateTime.now();
         ErrorResponse response = new ErrorResponse(404,
@@ -70,7 +70,18 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Object> handleIllegalArgumentException(HttpServletRequest request, IllegalArgumentException ex) {
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex) {
+
+        LocalDateTime currentTimestamp = LocalDateTime.now();
+        ErrorResponse response = new ErrorResponse(400,
+                ex.getMessage(),
+                currentTimestamp.toString());
+
+        return buildResponseEntity(response);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Object> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
 
         LocalDateTime currentTimestamp = LocalDateTime.now();
         ErrorResponse response = new ErrorResponse(400,

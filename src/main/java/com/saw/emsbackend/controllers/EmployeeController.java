@@ -2,6 +2,9 @@ package com.saw.emsbackend.controllers;
 
 import com.saw.emsbackend.dto.EmployeeDto;
 import com.saw.emsbackend.services.EmployeeServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,9 +16,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/employee")
 @AllArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
+@Tag(
+        name = "Employee",
+        description = "Employee Management System"
+)
 public class EmployeeController {
     private final EmployeeServiceImpl employeeService;
 
+    @Operation(
+            summary = "Create an employee",
+            description = "Create an  employee"
+    )
     @PostMapping
     public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
         EmployeeDto savedEmployeeDto = employeeService.createEmployee(employeeDto);
