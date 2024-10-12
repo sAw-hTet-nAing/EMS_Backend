@@ -19,6 +19,5 @@ public class Department {
     private long id;
     private String name;
     @OneToMany(mappedBy = "department")
-    @Column(nullable = true, updatable = true)
     private List<Employee> employees;
 }

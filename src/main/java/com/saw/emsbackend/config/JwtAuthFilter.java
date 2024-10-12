@@ -55,12 +55,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } catch (ExpiredJwtException e) {
-            handleExpiredJwtException(response, e);
+            handleExpiredJwtException(response);
         }
 
     }
 
-    private void handleExpiredJwtException(HttpServletResponse response, ExpiredJwtException e) throws IOException {
+    private void handleExpiredJwtException(HttpServletResponse response) throws IOException {
 
         String timeStamp = LocalDateTime.now().toString();
         ErrorResponse errorResponse = new ErrorResponse();
