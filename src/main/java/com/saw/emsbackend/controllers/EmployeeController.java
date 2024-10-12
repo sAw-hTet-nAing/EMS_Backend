@@ -1,6 +1,7 @@
 package com.saw.emsbackend.controllers;
 
 import com.saw.emsbackend.dto.EmployeeDto;
+import com.saw.emsbackend.services.DepartmentServiceImpl;
 import com.saw.emsbackend.services.EmployeeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -23,6 +24,7 @@ import java.util.List;
 )
 public class EmployeeController {
     private final EmployeeServiceImpl employeeService;
+    private final DepartmentServiceImpl departmentService;
 
     @Operation(
             summary = "Create an employee",
@@ -59,5 +61,11 @@ public class EmployeeController {
     public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok("Employee deleted successfully");
+    }
+
+    @GetMapping("/department/{departmentId}")
+    public ResponseEntity<List<EmployeeDto>> getEmployeesByDepartment(@PathVariable("departmentId") Long departmentId) {
+        List<EmployeeDto> employeeDtos = departmentService.getEmployeesByDepartment(departmentId);
+        return new ResponseEntity<>(employeeDtos, HttpStatus.OK);
     }
 }

@@ -28,4 +28,7 @@ public class EmployeeDto {
     private String email;
     private String phone;
     private String address;
+    @NotNull(message = "department id is required")
+    private long departmentId;
+    private String department;
 }

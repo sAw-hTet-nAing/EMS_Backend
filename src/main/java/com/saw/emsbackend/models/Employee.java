@@ -25,4 +25,7 @@ public class Employee {
     @Column(unique = true)
     private String phone;
     private String address;
+    @ManyToOne
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    private Department department;
 }

@@ -1,11 +1,11 @@
 package com.saw.emsbackend.services;
 
 import com.saw.emsbackend.dto.UserDto;
-import com.saw.emsbackend.exception.AuthenticationResponse;
 import com.saw.emsbackend.exception.ResourceNotFoundException;
 import com.saw.emsbackend.mapper.UserMapper;
 import com.saw.emsbackend.models.User;
 import com.saw.emsbackend.repository.UserRepository;
+import com.saw.emsbackend.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

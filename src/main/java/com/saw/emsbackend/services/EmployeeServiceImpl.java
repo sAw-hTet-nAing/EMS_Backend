@@ -3,7 +3,9 @@ package com.saw.emsbackend.services;
 import com.saw.emsbackend.dto.EmployeeDto;
 import com.saw.emsbackend.exception.ResourceNotFoundException;
 import com.saw.emsbackend.mapper.EmployeeMapper;
+import com.saw.emsbackend.models.Department;
 import com.saw.emsbackend.models.Employee;
+import com.saw.emsbackend.repository.DepartmentRepository;
 import com.saw.emsbackend.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
@@ -30,7 +33,9 @@ public class EmployeeServiceImpl implements EmployeeService {
                     throw new IllegalArgumentException("Phone already exists");
                 });
 
-        Employee employee = EmployeeMapper.toEmployee(employeeDto);
+        Department department = departmentRepository.findById(employeeDto.getDepartmentId()).orElseThrow(() -> new ResourceNotFoundException("Department not found"));
+
+        Employee employee = EmployeeMapper.toEmployee(employeeDto, department);
         Employee saveEmployee = employeeRepository.save(employee);
         return EmployeeMapper.toEmployeeDto(saveEmployee);
     }

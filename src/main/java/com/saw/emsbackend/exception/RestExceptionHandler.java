@@ -1,5 +1,6 @@
 package com.saw.emsbackend.exception;
 
+import com.saw.emsbackend.response.ErrorResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

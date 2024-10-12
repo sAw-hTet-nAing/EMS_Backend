@@ -1,4 +1,4 @@
-package com.saw.emsbackend.exception;
+package com.saw.emsbackend.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

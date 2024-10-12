@@ -1,4 +1,4 @@
-package com.saw.emsbackend.exception;
+package com.saw.emsbackend.response;
 
 import com.saw.emsbackend.dto.UserDto;
 import lombok.AllArgsConstructor;

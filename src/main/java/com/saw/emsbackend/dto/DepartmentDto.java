@@ -1,30 +1,23 @@
 package com.saw.emsbackend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.saw.emsbackend.enums.UserRole;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.NotBlank;
+import com.saw.emsbackend.models.Employee;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class DepartmentDto {
     private long id;
     @NotNull
-    @NotBlank
-    private String username;
-    @NotNull
-    @NotBlank
+    private String name;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private List<Employee> employees;
 }

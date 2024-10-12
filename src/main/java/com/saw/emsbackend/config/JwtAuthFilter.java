@@ -1,9 +1,9 @@
 package com.saw.emsbackend.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.saw.emsbackend.exception.ErrorResponse;
 import com.saw.emsbackend.mapper.UserMapper;
 import com.saw.emsbackend.models.User;
+import com.saw.emsbackend.response.ErrorResponse;
 import com.saw.emsbackend.services.JwtService;
 import com.saw.emsbackend.services.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
